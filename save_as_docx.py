@@ -1,12 +1,34 @@
 from docx import Document
 
-def save_as_docx(minutes, filename):
+def save_as_docx(minutes: dict, filename: str):
     doc = Document()
-    for key, value in minutes.items():
-        # Replace underscores with spaces and capitalize each word for the heading
-        heading = ' '.join(word.capitalize() for word in key.split('_'))
-        doc.add_heading(heading, level=1)
-        doc.add_paragraph(value)
-        # Add a line break between sections
-        doc.add_paragraph()
+
+    # Title
+    doc.add_heading("Meeting Minutes", level=0)
+
+    # Summary
+    doc.add_heading("Abstract Summary", level=1)
+    doc.add_paragraph(minutes["abstract_summary"])
+
+    # Transcript
+    doc.add_heading("Transcript", level=1)
+    doc.add_paragraph(minutes["transcript"])
+
+    # Meeting Minutes (POINTS)
+    doc.add_heading("Meeting Minutes", level=1)
+
+    meeting_minutes = minutes["meeting_minutes"]
+
+    # If meeting minutes are a list, write as numbered points
+    if isinstance(meeting_minutes, list):
+        for point in meeting_minutes:
+            doc.add_paragraph(point, style="List Number")
+    else:
+        # fallback (safety)
+        doc.add_paragraph(meeting_minutes)
+
+    # Sentiment
+    doc.add_heading("Sentiment", level=1)
+    doc.add_paragraph(minutes["sentiment"])
+
     doc.save(filename)
