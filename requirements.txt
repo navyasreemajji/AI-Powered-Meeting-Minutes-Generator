@@ -1,0 +1,9 @@
+streamlit
+soundfile
+pysoundfile
+openai-whisper
+torch
+transformers==4.36.2
+sentencepiece
+python-docx
+

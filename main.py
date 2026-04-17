@@ -17,7 +17,6 @@ def meeting_minutes(transcript: str) -> dict:
     }
 
 
-# Only runs when executing main.py directly
 if __name__ == "__main__":
     from transcription import transcribe_audio
     from save_as_docx import save_as_docx

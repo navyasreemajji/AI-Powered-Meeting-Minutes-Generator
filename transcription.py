@@ -3,7 +3,7 @@ import streamlit as st
 
 @st.cache_resource
 def load_whisper_model():
-    return whisper.load_model("base")
+    return whisper.load_model("tiny")
 
 def transcribe_audio(audio_file_path, _unused=None):
     model = load_whisper_model()
